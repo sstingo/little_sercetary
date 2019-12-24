@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
-// import 'services/weather.dart';
+import 'services/weather.dart';
 
 const dataid = 'F-C0032-001';
 const apiKey = 'CWB-9986681F-B9E6-474D-8458-753CD3B1C344';
@@ -90,7 +90,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   void initState() {
     super.initState();
-    getData();
+    weatherData = getData();
   }
 
   @override
@@ -165,21 +165,22 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-  dynamic getData() async {
-    http.Response response = await http.get(
-        'https://opendata.cwb.gov.tw/fileapi/v1/opendataapi/$dataid?Authorization=$apiKey&format=$format');
+  // Future <dynamic> getData() async {
+  //   http.Response response = await http.get(
+  //       'https://opendata.cwb.gov.tw/fileapi/v1/opendataapi/$dataid?Authorization=$apiKey&format=$format');
 
-    String data = response.body;
-    // var encodedata = Utf8Encoder(data);
-    var decodedData = jsonDecode(data);
-    // var city =
-    //     decodedData['cwbopendata']['dataset']['location'][0]['locationName'];
-    //cwbopendata.dataset.location[0].locationName
+  //   String data = response.body;
+  //   // var encodedata = Utf8Encoder(data);
+  //   var decodedData = jsonDecode(data);
+  //   var city =
+  //       decodedData['cwbopendata']['dataset']['location'][0]['locationName'];
+  //   //cwbopendata.dataset.location[0].locationName
+  //   print("--------------------------------------------------");
+  //   print(Utf8Decoder().convert(decodedData));
+  //   print(decodedData); /////
 
-    print(decodedData); /////
-
-    return weatherData;
-  }
+  //   return weatherData;
+  // }
 
   //  void updateWeather(dynamic weatherData, int _locations) {
   //   setState(() {
