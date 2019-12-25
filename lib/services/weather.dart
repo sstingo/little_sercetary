@@ -1,29 +1,29 @@
-import 'package:flutter/material.dart';
+// import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 const dataid = 'F-C0032-001';
 const apiKey = 'CWB-9986681F-B9E6-474D-8458-753CD3B1C344';
 const format = 'JSON';
 
-// class WeatherModel {
-//   Future<dynamic> getCityWeather(String cityName) async {
-//     NetworkHelper networkHelper = NetworkHelper(
-//         '$openWeatherMapURL?q=$cityName&appid=$apiKey&units=metric');
+Future<dynamic> getData() async {
+  http.Response response = await http.get(
+      'https://opendata.cwb.gov.tw/fileapi/v1/opendataapi/$dataid?Authorization=$apiKey&format=$format');
 
-//     var weatherData = await networkHelper.getData();
-//     return weatherData;
-//   }
+  if (response.statusCode == 200) {
+    String data = response.body;
+    dynamic decodedData = jsonDecode(data);
+    print("--------------------------------------------------"); /////
+    print(decodedData['cwbopendata']['dataset']['location'][0]['weatherElement']
+        [1]['time'][1]['parameter']['parameterName']); ////////////
 
-// Future<dynamic> getLocationWeather() async {
-//   Location location = Location();
-//   await location.getCurrentLocation();
-
-//   NetworkHelper networkHelper = NetworkHelper(
-//       '$openWeatherMapURL?lat=${location.latitude}&lon=${location.longitude}&appid=$apiKey&units=metric');
-
-//   var weatherData = await networkHelper.getData();
-
-//   return weatherData;
-// }
+    // print(Utf8Decoder().convert(decodedData));
+    // print(decodedData); /////
+    return decodedData;
+  } else {
+    print(response.statusCode);
+  }
+}
 
 String getWeatherIcon(int parameterValue) {
   if (parameterValue == 1) {
@@ -38,5 +38,3 @@ String getWeatherIcon(int parameterValue) {
     return '🤷‍';
   }
 }
-
-// }
