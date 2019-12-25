@@ -1,10 +1,36 @@
-// import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 const dataid = 'F-C0032-001';
 const apiKey = 'CWB-9986681F-B9E6-474D-8458-753CD3B1C344';
 const format = 'JSON';
+
+enum Locations {
+  None,
+  Taipei,
+  NewTaipei,
+  Taoyuan,
+  Taichung,
+  Tainan,
+  Kaohsiung,
+  Keelung,
+  Hsinchu,
+  HsinchuCity,
+  Miaoli,
+  Changhua,
+  Nantou,
+  Yunlin,
+  Chiayi,
+  ChiayiCity,
+  Pingtung,
+  Yilan,
+  Hualien,
+  Taitung,
+  Penghu,
+  Kinmen,
+  Lienchiang
+}
 
 Future<dynamic> getData() async {
   http.Response response = await http.get(
@@ -13,12 +39,6 @@ Future<dynamic> getData() async {
   if (response.statusCode == 200) {
     String data = response.body;
     dynamic decodedData = jsonDecode(data);
-    print("--------------------------------------------------"); /////
-    print(decodedData['cwbopendata']['dataset']['location'][0]['weatherElement']
-        [1]['time'][1]['parameter']['parameterName']); ////////////
-
-    // print(Utf8Decoder().convert(decodedData));
-    // print(decodedData); /////
     return decodedData;
   } else {
     print(response.statusCode);
@@ -37,4 +57,157 @@ String getWeatherIcon(int parameterValue) {
   } else {
     return '🤷‍';
   }
+}
+
+Future<Locations> showAlert(BuildContext context) {
+  //跳出視窗
+  return showDialog<Locations>(
+    context: context,
+    barrierDismissible: true, //控制點擊對話框以外的區域是否隱藏對話框
+    builder: (BuildContext context) {
+      return SimpleDialog(
+        title: Text('選擇所在地區'),
+        children: <Widget>[
+          SimpleDialogOption(
+            onPressed: () {
+              Navigator.of(context).pop(Locations.None);
+            },
+            child: const Text('...'),
+          ),
+          SimpleDialogOption(
+            onPressed: () {
+              Navigator.of(context).pop(Locations.Taipei);
+            },
+            child: const Text('臺北市'),
+          ),
+          SimpleDialogOption(
+            onPressed: () {
+              Navigator.of(context).pop(Locations.NewTaipei);
+            },
+            child: const Text('新北市'),
+          ),
+          SimpleDialogOption(
+            onPressed: () {
+              Navigator.of(context).pop(Locations.Taoyuan);
+            },
+            child: const Text('桃園市'),
+          ),
+          SimpleDialogOption(
+            onPressed: () {
+              Navigator.of(context).pop(Locations.Taichung);
+            },
+            child: const Text('臺中市'),
+          ),
+          SimpleDialogOption(
+            onPressed: () {
+              Navigator.of(context).pop(Locations.Tainan);
+            },
+            child: const Text('臺南市'),
+          ),
+          SimpleDialogOption(
+            onPressed: () {
+              Navigator.of(context).pop(Locations.Kaohsiung);
+            },
+            child: const Text('高雄市'),
+          ),
+          SimpleDialogOption(
+            onPressed: () {
+              Navigator.of(context).pop(Locations.Keelung);
+            },
+            child: const Text('基隆市'),
+          ),
+          SimpleDialogOption(
+            onPressed: () {
+              Navigator.of(context).pop(Locations.Hsinchu);
+            },
+            child: const Text('新竹縣'),
+          ),
+          SimpleDialogOption(
+            onPressed: () {
+              Navigator.of(context).pop(Locations.HsinchuCity);
+            },
+            child: const Text('新竹市'),
+          ),
+          SimpleDialogOption(
+            onPressed: () {
+              Navigator.of(context).pop(Locations.Miaoli);
+            },
+            child: const Text('苗栗縣'),
+          ),
+          SimpleDialogOption(
+            onPressed: () {
+              Navigator.of(context).pop(Locations.Changhua);
+            },
+            child: const Text('彰化縣'),
+          ),
+          SimpleDialogOption(
+            onPressed: () {
+              Navigator.of(context).pop(Locations.Nantou);
+            },
+            child: const Text('南投縣'),
+          ),
+          SimpleDialogOption(
+            onPressed: () {
+              Navigator.of(context).pop(Locations.Yunlin);
+            },
+            child: const Text('雲林縣'),
+          ),
+          SimpleDialogOption(
+            onPressed: () {
+              Navigator.of(context).pop(Locations.Chiayi);
+            },
+            child: const Text('嘉義縣'),
+          ),
+          SimpleDialogOption(
+            onPressed: () {
+              Navigator.of(context).pop(Locations.ChiayiCity);
+            },
+            child: const Text('嘉義市'),
+          ),
+          SimpleDialogOption(
+            onPressed: () {
+              Navigator.of(context).pop(Locations.Pingtung);
+            },
+            child: const Text('屏東縣'),
+          ),
+          SimpleDialogOption(
+            onPressed: () {
+              Navigator.of(context).pop(Locations.Yilan);
+            },
+            child: const Text('宜蘭縣'),
+          ),
+          SimpleDialogOption(
+            onPressed: () {
+              Navigator.of(context).pop(Locations.Hualien);
+            },
+            child: const Text('花蓮縣'),
+          ),
+          SimpleDialogOption(
+            onPressed: () {
+              Navigator.of(context).pop(Locations.Taitung);
+            },
+            child: const Text('臺東縣'),
+          ),
+          SimpleDialogOption(
+            onPressed: () {
+              Navigator.of(context).pop(Locations.Penghu);
+            },
+            child: const Text('澎湖縣'),
+          ),
+          SimpleDialogOption(
+            onPressed: () {
+              Navigator.of(context).pop(Locations.Kinmen);
+            },
+            child: const Text('金門縣'),
+          ),
+          SimpleDialogOption(
+            onPressed: () {
+              Navigator.of(context).pop(Locations.Lienchiang);
+            },
+            child: const Text('連江縣'),
+          ),
+        ],
+      );
+    },
+  );
 }
