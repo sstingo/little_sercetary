@@ -7,7 +7,6 @@ const apiKey = 'CWB-9986681F-B9E6-474D-8458-753CD3B1C344';
 const format = 'JSON';
 
 enum Locations {
-  None,
   Taipei,
   NewTaipei,
   Taoyuan,
@@ -29,7 +28,8 @@ enum Locations {
   Taitung,
   Penghu,
   Kinmen,
-  Lienchiang
+  Lienchiang,
+  None,
 }
 
 Future<dynamic> getData() async {
@@ -38,11 +38,40 @@ Future<dynamic> getData() async {
 
   if (response.statusCode == 200) {
     String data = response.body;
-    dynamic decodedData = jsonDecode(data);
+    dynamic decodedData = jsonDecode((data));
     return decodedData;
   } else {
     print(response.statusCode);
   }
+}
+
+String getCityName(int _locations) {
+  List cityList = [
+    '臺北市',
+    '新北市',
+    '桃園市',
+    '臺中市',
+    '臺南市',
+    '高雄市',
+    '基隆市',
+    '新竹縣',
+    '新竹市',
+    '苗栗縣',
+    '彰化縣',
+    '南投縣',
+    '雲林縣',
+    '嘉義縣',
+    '嘉義市',
+    '屏東縣',
+    '宜蘭縣',
+    '花蓮縣',
+    '臺東縣',
+    '澎湖縣',
+    '金門縣',
+    '連江縣'
+  ];
+
+  return cityList[_locations];
 }
 
 String getWeatherIcon(int parameterValue) {
@@ -88,33 +117,15 @@ Future<Locations> showAlert(BuildContext context) {
           ),
           SimpleDialogOption(
             onPressed: () {
-              Navigator.of(context).pop(Locations.Taoyuan);
-            },
-            child: const Text('桃園市'),
-          ),
-          SimpleDialogOption(
-            onPressed: () {
-              Navigator.of(context).pop(Locations.Taichung);
-            },
-            child: const Text('臺中市'),
-          ),
-          SimpleDialogOption(
-            onPressed: () {
-              Navigator.of(context).pop(Locations.Tainan);
-            },
-            child: const Text('臺南市'),
-          ),
-          SimpleDialogOption(
-            onPressed: () {
-              Navigator.of(context).pop(Locations.Kaohsiung);
-            },
-            child: const Text('高雄市'),
-          ),
-          SimpleDialogOption(
-            onPressed: () {
               Navigator.of(context).pop(Locations.Keelung);
             },
             child: const Text('基隆市'),
+          ),
+          SimpleDialogOption(
+            onPressed: () {
+              Navigator.of(context).pop(Locations.Taoyuan);
+            },
+            child: const Text('桃園市'),
           ),
           SimpleDialogOption(
             onPressed: () {
@@ -133,6 +144,12 @@ Future<Locations> showAlert(BuildContext context) {
               Navigator.of(context).pop(Locations.Miaoli);
             },
             child: const Text('苗栗縣'),
+          ),
+          SimpleDialogOption(
+            onPressed: () {
+              Navigator.of(context).pop(Locations.Taichung);
+            },
+            child: const Text('臺中市'),
           ),
           SimpleDialogOption(
             onPressed: () {
@@ -163,6 +180,18 @@ Future<Locations> showAlert(BuildContext context) {
               Navigator.of(context).pop(Locations.ChiayiCity);
             },
             child: const Text('嘉義市'),
+          ),
+          SimpleDialogOption(
+            onPressed: () {
+              Navigator.of(context).pop(Locations.Tainan);
+            },
+            child: const Text('臺南市'),
+          ),
+          SimpleDialogOption(
+            onPressed: () {
+              Navigator.of(context).pop(Locations.Kaohsiung);
+            },
+            child: const Text('高雄市'),
           ),
           SimpleDialogOption(
             onPressed: () {

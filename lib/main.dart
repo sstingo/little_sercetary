@@ -30,7 +30,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   dynamic weatherData;
-  int _locations = -1;
+  int _locations = 22;
   String cityName;
   String wx;
   int wxValue;
@@ -42,7 +42,11 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   void initState() {
     super.initState();
-    // weatherData = getData();
+    // setData() await;
+    // Future setData() async {
+    //   weatherData = await getData();
+    // }
+
     updateWeather();
     // print(weatherData); /////
   }
@@ -62,7 +66,7 @@ class _MyHomePageState extends State<MyHomePage> {
           child: FractionallySizedBox(
             //百分比調大小
             widthFactor: 1,
-            heightFactor: 0.2,
+            heightFactor: 0.11,
             child: Container(
               color: Colors.grey[300],
               padding: EdgeInsets.all(10.0),
@@ -72,31 +76,30 @@ class _MyHomePageState extends State<MyHomePage> {
                   Text(
                     '天氣',
                     style: TextStyle(
-                      fontSize: 8.0,
+                      fontSize: 12.0,
                       color: Colors.grey,
                     ),
                   ),
                   Text(
-                    '${_locations < 0 ? "未選擇地區" : Locations.values[_locations]}' +
-                        '${_locations < 0 ? "" : " 今日天氣 "}',
+                    '${_locations >= 22 ? "未選擇地區" : cityName}' +
+                        // '${_locations >= 22 ? "" : Locations.values[_locations]}' + //////
+                        // '${_locations > 22 ? "" : _locations}' +
+                        '${_locations >= 22 ? "" : " 💧"}' +
+                        '${_locations >= 22 ? "" : pop}' +
+                        '${_locations >= 22 ? "" : "%"}',
                     style: TextStyle(
-                      fontSize: 10.0,
+                      fontSize: 14.0,
                     ),
                   ),
                   Text(
-                    '${_locations < 0 ? "" : wxIcon}' +
-                        '${_locations < 0 ? "" : minT}' +
-                        '${_locations < 0 ? "" : "°c~"}' +
-                        '${_locations < 0 ? "" : maxT}' +
-                        '${_locations < 0 ? "" : "°c"}' +
-                        '${_locations < 0 ? "" : " 💧"}' +
-                        '${_locations < 0 ? "" : pop}' +
-                        '${_locations < 0 ? "" : "%"}',
-                    // '${_locations < 0 ? "" : _locations}', /////////
+                    '${_locations >= 22 ? "" : wxIcon}' +
+                        '${_locations >= 22 ? "" : minT}' +
+                        '${_locations >= 22 ? "" : "°c~"}' +
+                        '${_locations >= 22 ? "" : maxT}' +
+                        '${_locations >= 22 ? "" : "°c"}',
                     style: TextStyle(
-                      fontSize: 10.0,
+                      fontSize: 14.0,
                     ),
-                    // style: Theme.of(context).textTheme.display1,
                   ),
                 ],
               ),
@@ -111,14 +114,14 @@ class _MyHomePageState extends State<MyHomePage> {
           setState(() {
             try {
               if (locations.index == 0) {
-                _locations = -1;
+                _locations = 22;
               } else {
                 _locations = locations.index;
                 updateWeather();
               }
             } catch (e) {
-              print('fail');
-              // _locations = -1;
+              print('fail'); ///////////
+              // _locations = 22;
             }
           });
         },
@@ -128,35 +131,31 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-  // void updateData() async {
-  //   weatherData = await getData();
-  //   print("bbbbbbbbbbb$weatherData");
-  // }
-
   void updateWeather() async {
-    // print("aaaaaaaaaaa$weatherData");
+    // print(_locations); /////////
     setState(() {
-      if (weatherData == null || _locations < 0) {
+      if (weatherData == null || _locations >= 22) {
         cityName = '';
         wxIcon = '';
         maxT = '';
         minT = '';
         pop = '';
-        // print('test1'); ///////
+        _locations = 22;
+        print('updateWeather fail');
         return;
       }
-      cityName = weatherData['cwbopendata']['dataset']['location']
-          [_locations - 1]['locationName'];
-      wx = weatherData['cwbopendata']['dataset']['location'][_locations - 1]
+      // cityName = weatherData['cwbopendata']['dataset']['location']
+      //     [_locations - 1]['locationName'];
+      cityName = getCityName(_locations);
+      wx = weatherData['cwbopendata']['dataset']['location'][_locations]
           ['weatherElement'][0]['time'][1]['parameter']['parameterValue'];
       wxValue = int.parse(wx);
-      // print(wxValue);
       wxIcon = getWeatherIcon(wxValue);
-      maxT = weatherData['cwbopendata']['dataset']['location'][_locations - 1]
+      maxT = weatherData['cwbopendata']['dataset']['location'][_locations]
           ['weatherElement'][1]['time'][1]['parameter']['parameterName'];
-      minT = weatherData['cwbopendata']['dataset']['location'][_locations - 1]
+      minT = weatherData['cwbopendata']['dataset']['location'][_locations]
           ['weatherElement'][2]['time'][1]['parameter']['parameterName'];
-      pop = weatherData['cwbopendata']['dataset']['location'][_locations - 1]
+      pop = weatherData['cwbopendata']['dataset']['location'][_locations]
           ['weatherElement'][4]['time'][1]['parameter']['parameterName'];
     });
   }
