@@ -61,7 +61,7 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
-        backgroundColor: Colors.deepOrange[200], ///////////
+        backgroundColor: Colors.deepOrange[200],
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -81,8 +81,8 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
                 Container(
                   // width: 100,
-                  height: buttonHeight,
-
+                  // height: buttonHeight,
+                  height: 50, ////////////////////////
                   child: RaisedButton(
                     color: Colors.blue,
                     shape: RoundedRectangleBorder(
@@ -91,7 +91,6 @@ class _MyHomePageState extends State<MyHomePage> {
                     onPressed: () async {
                       var locations = await showAlert(context);
                       weatherData = await getData();
-                      print('test'); ////////////
                       setState(() {
                         try {
                           if (locations.index == 0) {
@@ -103,8 +102,7 @@ class _MyHomePageState extends State<MyHomePage> {
                             updateWeather();
                           }
                         } catch (e) {
-                          print('fail'); ///////////
-                          // _locations = 22;
+                          print('fail');
                         }
                       });
                     },
@@ -145,7 +143,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   Positioned(
                     width: 100,
                     left: 50,
-                    top: 50,
+                    top: 40,
                     child: Image.asset('image/catcat2.png'),
                   ),
                   Column(
@@ -298,30 +296,6 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
         ],
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () async {
-          var locations = await showAlert(context);
-          weatherData = await getData();
-          print('test'); ////////////
-          setState(() {
-            try {
-              if (locations.index == 0) {
-                _locations = 22;
-                buttonHeight = 50;
-              } else {
-                _locations = locations.index;
-                buttonHeight = 0;
-                updateWeather();
-              }
-            } catch (e) {
-              print('fail'); ///////////
-              // _locations = 22;
-            }
-          });
-        },
-        tooltip: 'Increment',
-        child: Icon(Icons.add),
-      ),
     );
   }
 
@@ -356,13 +330,32 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 }
 
-//   child: Column(
-//     children: <Widget>[
-// Container(
-// color: Colors.white,
-// child: Align(
-//   alignment: Alignment.topCenter,
 //   child: FractionallySizedBox(
 //     //百分比調大小
 //     widthFactor: 1,
 //     heightFactor: 0.11,
+
+// floatingActionButton: FloatingActionButton(
+//         onPressed: () async {
+//           var locations = await showAlert(context);
+//           weatherData = await getData();
+//           print('test'); ////////////
+//           setState(() {
+//             try {
+//               if (locations.index == 0) {
+//                 _locations = 22;
+//                 buttonHeight = 50;
+//               } else {
+//                 _locations = locations.index;
+//                 buttonHeight = 0;
+//                 updateWeather();
+//               }
+//             } catch (e) {
+//               print('fail'); ///////////
+//               // _locations = 22;
+//             }
+//           });
+//         },
+//         tooltip: 'Increment',
+//         child: Icon(Icons.add),
+//       ),
