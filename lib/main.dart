@@ -12,9 +12,6 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
       home: MyHomePage(title: '生活小秘書'),
     );
   }
@@ -39,6 +36,7 @@ class _MyHomePageState extends State<MyHomePage> {
   String maxT;
   String minT;
   String pop;
+  double buttonHeight = 50;
 
   @override
   void initState() {
@@ -63,9 +61,9 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
+        backgroundColor: Colors.deepOrange[200], ///////////
       ),
       body: Column(
-        // mainAxisSize: MainAxisSize.max,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
           Container(
@@ -77,19 +75,52 @@ class _MyHomePageState extends State<MyHomePage> {
                 Text(
                   '天氣',
                   style: TextStyle(
-                    fontSize: 12.0,
+                    fontSize: 13.0,
                     color: Colors.grey,
                   ),
                 ),
+                Container(
+                  // width: 100,
+                  height: buttonHeight,
+
+                  child: RaisedButton(
+                    color: Colors.blue,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(5)),
+                    ),
+                    onPressed: () async {
+                      var locations = await showAlert(context);
+                      weatherData = await getData();
+                      print('test'); ////////////
+                      setState(() {
+                        try {
+                          if (locations.index == 0) {
+                            _locations = 22;
+                            buttonHeight = 50;
+                          } else {
+                            _locations = locations.index;
+                            buttonHeight = 0;
+                            updateWeather();
+                          }
+                        } catch (e) {
+                          print('fail'); ///////////
+                          // _locations = 22;
+                        }
+                      });
+                    },
+                    child: Text(
+                      '請選擇地區',
+                      style: TextStyle(fontSize: 15, color: Colors.white),
+                    ),
+                  ),
+                ),
                 Text(
-                  '${_locations >= 22 ? "未選擇地區" : cityName}' +
-                      // '${_locations >= 22 ? "" : Locations.values[_locations]}' + //////
-                      // '${_locations > 22 ? "" : _locations}' +
+                  '${_locations >= 22 ? "" : cityName}' +
                       '${_locations >= 22 ? "" : " 💧"}' +
                       '${_locations >= 22 ? "" : pop}' +
                       '${_locations >= 22 ? "" : "%"}',
                   style: TextStyle(
-                    fontSize: 14.0,
+                    fontSize: 15.0,
                   ),
                 ),
                 Text(
@@ -99,64 +130,187 @@ class _MyHomePageState extends State<MyHomePage> {
                       '${_locations >= 22 ? "" : maxT}' +
                       '${_locations >= 22 ? "" : "°c"}',
                   style: TextStyle(
-                    fontSize: 14.0,
+                    fontSize: 15.0,
                   ),
                 ),
               ],
             ),
           ),
-          Container(
+          Expanded(
+            //擴張到父最大(不管子大小)
+            child: Container(
               color: Colors.grey,
-              height: 500,
               child: Stack(
                 children: <Widget>[
                   Positioned(
-                    left: 100,
-                    top: 100,
-                    child: Container(
-                      width: 100,
-                      height: 100,
-                      decoration: BoxDecoration(
-                        border: Border.all(width: 5, color: Colors.black38),
-                        borderRadius: BorderRadius.all(Radius.circular(10)),
-                      ),
-                      child: RaisedButton(
-                        color: Colors.blue,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(5)),
-                        ),
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) {
-                                return Test();
-                              },
-                            ),
-                          );
-                        },
-                        // shape: CircleBorder(),
-                        child: Text(
-                          '財務',
-                          style: TextStyle(fontSize: 20, color: Colors.white),
-                        ),
-                      ),
-                    ),
+                    width: 100,
+                    left: 50,
+                    top: 50,
+                    child: Image.asset('image/catcat2.png'),
                   ),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: <Widget>[
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: <Widget>[
+                          Container(
+                            width: 100,
+                            height: 100,
+                            decoration: BoxDecoration(
+                              border:
+                                  Border.all(width: 5, color: Colors.black38),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(10)),
+                            ),
+                            child: RaisedButton(
+                              color: Colors.blue,
+                              shape: RoundedRectangleBorder(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(5)),
+                              ),
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) {
+                                      return Test();
+                                    },
+                                  ),
+                                );
+                              },
+                              child: Text(
+                                '健康',
+                                style: TextStyle(
+                                    fontSize: 20, color: Colors.white),
+                              ),
+                            ),
+                          ),
+                          Container(
+                            width: 100,
+                            height: 100,
+                            decoration: BoxDecoration(
+                              border:
+                                  Border.all(width: 5, color: Colors.black38),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(10)),
+                            ),
+                            child: RaisedButton(
+                              color: Colors.red,
+                              shape: RoundedRectangleBorder(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(5)),
+                              ),
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) {
+                                      return Test();
+                                    },
+                                  ),
+                                );
+                              },
+                              child: Text(
+                                '財務',
+                                style: TextStyle(
+                                    fontSize: 20, color: Colors.white),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: <Widget>[
+                          Container(
+                            width: 100,
+                            height: 100,
+                            decoration: BoxDecoration(
+                              border:
+                                  Border.all(width: 5, color: Colors.black38),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(10)),
+                            ),
+                            child: RaisedButton(
+                              color: Colors.green,
+                              shape: RoundedRectangleBorder(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(5)),
+                              ),
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) {
+                                      return Test();
+                                    },
+                                  ),
+                                );
+                              },
+                              child: Text(
+                                '用餐',
+                                style: TextStyle(
+                                    fontSize: 20, color: Colors.white),
+                              ),
+                            ),
+                          ),
+                          Container(
+                            width: 100,
+                            height: 100,
+                            decoration: BoxDecoration(
+                              border:
+                                  Border.all(width: 5, color: Colors.black38),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(10)),
+                            ),
+                            child: RaisedButton(
+                              color: Colors.yellow,
+                              shape: RoundedRectangleBorder(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(5)),
+                              ),
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) {
+                                      return Test();
+                                    },
+                                  ),
+                                );
+                              },
+                              child: Text(
+                                '遊戲',
+                                style: TextStyle(
+                                    fontSize: 20, color: Colors.white),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                  // Image.asset('image/catcat2.png'),
                 ],
-              )),
+              ),
+            ),
+          ),
         ],
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
           var locations = await showAlert(context);
           weatherData = await getData();
+          print('test'); ////////////
           setState(() {
             try {
               if (locations.index == 0) {
                 _locations = 22;
+                buttonHeight = 50;
               } else {
                 _locations = locations.index;
+                buttonHeight = 0;
                 updateWeather();
               }
             } catch (e) {
@@ -181,6 +335,7 @@ class _MyHomePageState extends State<MyHomePage> {
         minT = '';
         pop = '';
         _locations = 22;
+        buttonHeight = 50;
         print('updateWeather fail');
         return;
       }
