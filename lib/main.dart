@@ -1,12 +1,13 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import 'services/weather.dart';
+import 'screens/Test.dart';
 
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -46,6 +47,10 @@ class _MyHomePageState extends State<MyHomePage> {
     // Future setData() async {
     //   weatherData = await getData();
     // }
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);
 
     updateWeather();
     // print(weatherData); /////
@@ -59,53 +64,88 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      body: Container(
-        color: Colors.white,
-        child: Align(
-          alignment: Alignment.topCenter,
-          child: FractionallySizedBox(
-            //百分比調大小
-            widthFactor: 1,
-            heightFactor: 0.11,
-            child: Container(
-              color: Colors.grey[300],
-              padding: EdgeInsets.all(10.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+      body: Column(
+        // mainAxisSize: MainAxisSize.max,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: <Widget>[
+          Container(
+            color: Colors.grey[300],
+            padding: EdgeInsets.all(10.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Text(
+                  '天氣',
+                  style: TextStyle(
+                    fontSize: 12.0,
+                    color: Colors.grey,
+                  ),
+                ),
+                Text(
+                  '${_locations >= 22 ? "未選擇地區" : cityName}' +
+                      // '${_locations >= 22 ? "" : Locations.values[_locations]}' + //////
+                      // '${_locations > 22 ? "" : _locations}' +
+                      '${_locations >= 22 ? "" : " 💧"}' +
+                      '${_locations >= 22 ? "" : pop}' +
+                      '${_locations >= 22 ? "" : "%"}',
+                  style: TextStyle(
+                    fontSize: 14.0,
+                  ),
+                ),
+                Text(
+                  '${_locations >= 22 ? "" : wxIcon}' +
+                      '${_locations >= 22 ? "" : minT}' +
+                      '${_locations >= 22 ? "" : "°c~"}' +
+                      '${_locations >= 22 ? "" : maxT}' +
+                      '${_locations >= 22 ? "" : "°c"}',
+                  style: TextStyle(
+                    fontSize: 14.0,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Container(
+              color: Colors.grey,
+              height: 500,
+              child: Stack(
                 children: <Widget>[
-                  Text(
-                    '天氣',
-                    style: TextStyle(
-                      fontSize: 12.0,
-                      color: Colors.grey,
-                    ),
-                  ),
-                  Text(
-                    '${_locations >= 22 ? "未選擇地區" : cityName}' +
-                        // '${_locations >= 22 ? "" : Locations.values[_locations]}' + //////
-                        // '${_locations > 22 ? "" : _locations}' +
-                        '${_locations >= 22 ? "" : " 💧"}' +
-                        '${_locations >= 22 ? "" : pop}' +
-                        '${_locations >= 22 ? "" : "%"}',
-                    style: TextStyle(
-                      fontSize: 14.0,
-                    ),
-                  ),
-                  Text(
-                    '${_locations >= 22 ? "" : wxIcon}' +
-                        '${_locations >= 22 ? "" : minT}' +
-                        '${_locations >= 22 ? "" : "°c~"}' +
-                        '${_locations >= 22 ? "" : maxT}' +
-                        '${_locations >= 22 ? "" : "°c"}',
-                    style: TextStyle(
-                      fontSize: 14.0,
+                  Positioned(
+                    left: 100,
+                    top: 100,
+                    child: Container(
+                      width: 100,
+                      height: 100,
+                      decoration: BoxDecoration(
+                        border: Border.all(width: 5, color: Colors.black38),
+                        borderRadius: BorderRadius.all(Radius.circular(10)),
+                      ),
+                      child: RaisedButton(
+                        color: Colors.blue,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(5)),
+                        ),
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) {
+                                return Test();
+                              },
+                            ),
+                          );
+                        },
+                        // shape: CircleBorder(),
+                        child: Text(
+                          '財務',
+                          style: TextStyle(fontSize: 20, color: Colors.white),
+                        ),
+                      ),
                     ),
                   ),
                 ],
-              ),
-            ),
-          ),
-        ),
+              )),
+        ],
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
@@ -160,3 +200,14 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 }
+
+//   child: Column(
+//     children: <Widget>[
+// Container(
+// color: Colors.white,
+// child: Align(
+//   alignment: Alignment.topCenter,
+//   child: FractionallySizedBox(
+//     //百分比調大小
+//     widthFactor: 1,
+//     heightFactor: 0.11,
