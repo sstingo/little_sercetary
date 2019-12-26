@@ -61,14 +61,23 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
-        backgroundColor: Colors.deepOrange[200],
+        backgroundColor: Colors.deepOrange[300],
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
           Container(
-            color: Colors.grey[300],
             padding: EdgeInsets.all(10.0),
+            decoration: BoxDecoration(
+              color: Colors.deepOrange[50],
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey,
+                  // blurRadius: 20.0,
+                  // spreadRadius: 20.0,
+                ),
+              ],
+            ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
@@ -76,7 +85,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   '天氣',
                   style: TextStyle(
                     fontSize: 13.0,
-                    color: Colors.grey,
+                    color: Colors.grey[600],
                   ),
                 ),
                 Container(
@@ -84,7 +93,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   // height: buttonHeight,
                   height: 50, ////////////////////////
                   child: RaisedButton(
-                    color: Colors.blue,
+                    color: Colors.deepOrange[200],
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.all(Radius.circular(5)),
                     ),
@@ -137,7 +146,7 @@ class _MyHomePageState extends State<MyHomePage> {
           Expanded(
             //擴張到父最大(不管子大小)
             child: Container(
-              color: Colors.grey,
+              color: Colors.orange[50],
               child: Stack(
                 children: <Widget>[
                   Positioned(
@@ -156,13 +165,13 @@ class _MyHomePageState extends State<MyHomePage> {
                             width: 100,
                             height: 100,
                             decoration: BoxDecoration(
-                              border:
-                                  Border.all(width: 5, color: Colors.black38),
+                              border: Border.all(
+                                  width: 5, color: Colors.deepOrange[200]),
                               borderRadius:
                                   BorderRadius.all(Radius.circular(10)),
                             ),
                             child: RaisedButton(
-                              color: Colors.blue,
+                              color: Colors.orange[700],
                               shape: RoundedRectangleBorder(
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(5)),
@@ -188,13 +197,13 @@ class _MyHomePageState extends State<MyHomePage> {
                             width: 100,
                             height: 100,
                             decoration: BoxDecoration(
-                              border:
-                                  Border.all(width: 5, color: Colors.black38),
+                              border: Border.all(
+                                  width: 5, color: Colors.deepOrange[200]),
                               borderRadius:
                                   BorderRadius.all(Radius.circular(10)),
                             ),
                             child: RaisedButton(
-                              color: Colors.red,
+                              color: Colors.orange[900],
                               shape: RoundedRectangleBorder(
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(5)),
@@ -225,13 +234,13 @@ class _MyHomePageState extends State<MyHomePage> {
                             width: 100,
                             height: 100,
                             decoration: BoxDecoration(
-                              border:
-                                  Border.all(width: 5, color: Colors.black38),
+                              border: Border.all(
+                                  width: 5, color: Colors.deepOrange[200]),
                               borderRadius:
                                   BorderRadius.all(Radius.circular(10)),
                             ),
                             child: RaisedButton(
-                              color: Colors.green,
+                              color: Colors.red[400],
                               shape: RoundedRectangleBorder(
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(5)),
@@ -257,13 +266,13 @@ class _MyHomePageState extends State<MyHomePage> {
                             width: 100,
                             height: 100,
                             decoration: BoxDecoration(
-                              border:
-                                  Border.all(width: 5, color: Colors.black38),
+                              border: Border.all(
+                                  width: 5, color: Colors.deepOrange[200]),
                               borderRadius:
                                   BorderRadius.all(Radius.circular(10)),
                             ),
                             child: RaisedButton(
-                              color: Colors.yellow,
+                              color: Colors.red[700],
                               shape: RoundedRectangleBorder(
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(5)),
