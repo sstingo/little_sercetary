@@ -88,39 +88,6 @@ class _MyHomePageState extends State<MyHomePage> {
                     color: Colors.grey[600],
                   ),
                 ),
-                // Container(
-                //   // width: 100,
-                //   height: buttonHeight,
-                //   // height: 50, ////////////////////////
-                //   child: RaisedButton(
-                //     color: Colors.deepOrange[200],
-                //     shape: RoundedRectangleBorder(
-                //       borderRadius: BorderRadius.all(Radius.circular(5)),
-                //     ),
-                //     onPressed: () async {
-                //       var locations = await showAlert(context);
-                //       weatherData = await getData();
-                //       setState(() {
-                //         try {
-                //           if (locations.index == 0) {
-                //             _locations = 22;
-                //             buttonHeight = 50;
-                //           } else {
-                //             _locations = locations.index;
-                //             buttonHeight = 0;
-                //             updateWeather();
-                //           }
-                //         } catch (e) {
-                //           print('fail');
-                //         }
-                //       });
-                //     },
-                //     child: Text(
-                //       '請選擇地區',
-                //       style: TextStyle(fontSize: 15, color: Colors.white),
-                //     ),
-                //   ),
-                // ),
                 Row(
                   children: <Widget>[
                     Container(
@@ -362,7 +329,6 @@ class _MyHomePageState extends State<MyHomePage> {
                       ),
                     ],
                   ),
-                  // Image.asset('image/catcat2.png'),
                 ],
               ),
             ),
@@ -399,6 +365,7 @@ class _MyHomePageState extends State<MyHomePage> {
           ['weatherElement'][2]['time'][1]['parameter']['parameterName'];
       pop = weatherData['cwbopendata']['dataset']['location'][_locations]
           ['weatherElement'][4]['time'][1]['parameter']['parameterName'];
+      print('updateWeather success');
     });
   }
 }
@@ -432,3 +399,37 @@ class _MyHomePageState extends State<MyHomePage> {
 //         tooltip: 'Increment',
 //         child: Icon(Icons.add),
 //       ),
+
+// Container(
+//   // width: 100,
+//   height: buttonHeight,
+//   // height: 50, ////////////////////////
+//   child: RaisedButton(
+//     color: Colors.deepOrange[200],
+//     shape: RoundedRectangleBorder(
+//       borderRadius: BorderRadius.all(Radius.circular(5)),
+//     ),
+//     onPressed: () async {
+//       var locations = await showAlert(context);
+//       weatherData = await getData();
+//       setState(() {
+//         try {
+//           if (locations.index == 0) {
+//             _locations = 22;
+//             buttonHeight = 50;
+//           } else {
+//             _locations = locations.index;
+//             buttonHeight = 0;
+//             updateWeather();
+//           }
+//         } catch (e) {
+//           print('fail');
+//         }
+//       });
+//     },
+//     child: Text(
+//       '請選擇地區',
+//       style: TextStyle(fontSize: 15, color: Colors.white),
+//     ),
+//   ),
+// ),
