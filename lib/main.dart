@@ -88,57 +88,121 @@ class _MyHomePageState extends State<MyHomePage> {
                     color: Colors.grey[600],
                   ),
                 ),
-                Container(
-                  // width: 100,
-                  // height: buttonHeight,
-                  height: 50, ////////////////////////
-                  child: RaisedButton(
-                    color: Colors.deepOrange[200],
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(5)),
+                // Container(
+                //   // width: 100,
+                //   height: buttonHeight,
+                //   // height: 50, ////////////////////////
+                //   child: RaisedButton(
+                //     color: Colors.deepOrange[200],
+                //     shape: RoundedRectangleBorder(
+                //       borderRadius: BorderRadius.all(Radius.circular(5)),
+                //     ),
+                //     onPressed: () async {
+                //       var locations = await showAlert(context);
+                //       weatherData = await getData();
+                //       setState(() {
+                //         try {
+                //           if (locations.index == 0) {
+                //             _locations = 22;
+                //             buttonHeight = 50;
+                //           } else {
+                //             _locations = locations.index;
+                //             buttonHeight = 0;
+                //             updateWeather();
+                //           }
+                //         } catch (e) {
+                //           print('fail');
+                //         }
+                //       });
+                //     },
+                //     child: Text(
+                //       '請選擇地區',
+                //       style: TextStyle(fontSize: 15, color: Colors.white),
+                //     ),
+                //   ),
+                // ),
+                Row(
+                  children: <Widget>[
+                    Container(
+                      width: 300,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Text(
+                            '${_locations >= 22 ? "未選擇地區" : cityName}' +
+                                '${_locations >= 22 ? "" : " 💧"}' +
+                                '${_locations >= 22 ? "" : pop}' +
+                                '${_locations >= 22 ? "" : "%"}',
+                            style: TextStyle(
+                              fontSize: 15.0,
+                            ),
+                          ),
+                          Text(
+                            '${_locations >= 22 ? "" : wxIcon}' +
+                                '${_locations >= 22 ? "" : minT}' +
+                                '${_locations >= 22 ? "" : "°c~"}' +
+                                '${_locations >= 22 ? "" : maxT}' +
+                                '${_locations >= 22 ? "" : "°c"}',
+                            style: TextStyle(
+                              fontSize: 15.0,
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
-                    onPressed: () async {
-                      var locations = await showAlert(context);
-                      weatherData = await getData();
-                      setState(() {
-                        try {
-                          if (locations.index == 0) {
-                            _locations = 22;
-                            buttonHeight = 50;
-                          } else {
-                            _locations = locations.index;
-                            buttonHeight = 0;
-                            updateWeather();
-                          }
-                        } catch (e) {
-                          print('fail');
-                        }
-                      });
-                    },
-                    child: Text(
-                      '請選擇地區',
-                      style: TextStyle(fontSize: 15, color: Colors.white),
+                    Align(
+                      alignment: Alignment.centerRight,
+                      child: Container(
+                        width: 30,
+                        height: 30,
+                        child: IconButton(
+                          iconSize: 20,
+                          padding: EdgeInsets.all(5),
+                          icon: Icon(Icons.sync),
+                          onPressed: () async {
+                            weatherData = await getData();
+                            setState(() {
+                              try {
+                                updateWeather();
+                              } catch (e) {
+                                print('fail');
+                              }
+                            });
+                          },
+                        ),
+                      ),
                     ),
-                  ),
-                ),
-                Text(
-                  '${_locations >= 22 ? "" : cityName}' +
-                      '${_locations >= 22 ? "" : " 💧"}' +
-                      '${_locations >= 22 ? "" : pop}' +
-                      '${_locations >= 22 ? "" : "%"}',
-                  style: TextStyle(
-                    fontSize: 15.0,
-                  ),
-                ),
-                Text(
-                  '${_locations >= 22 ? "" : wxIcon}' +
-                      '${_locations >= 22 ? "" : minT}' +
-                      '${_locations >= 22 ? "" : "°c~"}' +
-                      '${_locations >= 22 ? "" : maxT}' +
-                      '${_locations >= 22 ? "" : "°c"}',
-                  style: TextStyle(
-                    fontSize: 15.0,
-                  ),
+                    Align(
+                      alignment: Alignment.centerRight,
+                      child: Container(
+                        width: 30,
+                        height: 30,
+                        child: IconButton(
+                          iconSize: 20,
+                          padding: EdgeInsets.all(5),
+                          icon: Icon(Icons.location_city),
+                          onPressed: () async {
+                            var locations = await showAlert(context);
+                            weatherData = await getData();
+                            setState(() {
+                              try {
+                                if (locations.index == 0) {
+                                  _locations = 22;
+                                  buttonHeight = 50;
+                                } else {
+                                  _locations = locations.index;
+                                  buttonHeight = 0;
+                                  updateWeather();
+                                }
+                              } catch (e) {
+                                print('fail');
+                              }
+                            });
+                          },
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ],
             ),
