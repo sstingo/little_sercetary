@@ -91,7 +91,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 Row(
                   children: <Widget>[
                     Container(
-                      width: 300,
+                      width: 310,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
@@ -120,10 +120,10 @@ class _MyHomePageState extends State<MyHomePage> {
                     Align(
                       alignment: Alignment.centerRight,
                       child: Container(
-                        width: 30,
-                        height: 30,
+                        width: 40,
+                        height: 40,
                         child: IconButton(
-                          iconSize: 20,
+                          iconSize: 25,
                           padding: EdgeInsets.all(5),
                           icon: Icon(Icons.sync),
                           onPressed: () async {
@@ -142,10 +142,10 @@ class _MyHomePageState extends State<MyHomePage> {
                     Align(
                       alignment: Alignment.centerRight,
                       child: Container(
-                        width: 30,
-                        height: 30,
+                        width: 40,
+                        height: 40,
                         child: IconButton(
-                          iconSize: 20,
+                          iconSize: 25,
                           padding: EdgeInsets.all(5),
                           icon: Icon(Icons.location_city),
                           onPressed: () async {
